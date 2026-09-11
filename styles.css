@@ -1,0 +1,71 @@
+:root {
+  color-scheme: light dark;
+  --ink: #24201d;
+  --muted: #6b625c;
+  --paper: #f7f3ed;
+  --card: #fffdf9;
+  --line: #ded5cb;
+  --accent: #9a4d2d;
+  --accent-dark: #71351f;
+  --accent-soft: #f0dfd4;
+  --warning: #fff1d6;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+main { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 48px 0; }
+header { max-width: 680px; margin-bottom: 28px; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: 8px; font: 700 clamp(2rem, 5vw, 3.25rem)/1.05 Georgia, serif; letter-spacing: -.03em; }
+h2 { margin-bottom: 6px; font-size: 1.15rem; }
+.intro, .hint, .sources { color: var(--muted); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 12px 32px #4b2c1a0d; }
+.calculator { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(280px, 1fr); gap: 28px; padding: 28px; }
+.dial-wrap { display: grid; place-items: center; min-height: 310px; background: var(--paper); border-radius: 14px; }
+.dial { --rotation: 0deg; position: relative; width: min(300px, 80vw); aspect-ratio: 1; border: 18px solid #d4cbc2; border-radius: 50%; background: radial-gradient(circle, var(--card) 0 38%, transparent 39%), repeating-conic-gradient(from -140deg, #8d8178 0 1deg, transparent 1deg 7deg); box-shadow: inset 0 0 0 2px #b9aea5, 0 5px 12px #4b2c1a1a; transform: rotate(var(--rotation)); transition: transform .25s ease; }
+.dial::before { content: ""; position: absolute; inset: 23%; border: 10px solid var(--accent-soft); border-radius: 50%; box-shadow: inset 0 0 0 2px var(--accent); }
+.dial::after { content: ""; position: absolute; width: 8px; height: 48%; left: calc(50% - 4px); top: 3%; border-radius: 8px; background: var(--accent); transform-origin: 50% 100%; transform: rotate(140deg); }
+.micro-marker { position: absolute; inset: 23%; z-index: 1; transform: rotate(var(--micro-rotation)); transition: transform .25s ease; }
+.micro-marker::after { content: ""; position: absolute; width: 5px; height: 35%; left: calc(50% - 2.5px); top: 7%; border-radius: 6px; background: var(--accent-dark); transform-origin: 50% 100%; }
+.dial-label { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; z-index: 1; transform: rotate(calc(var(--rotation) * -1)); }
+.dial-value { display: block; font: 700 2.5rem/1 Georgia, serif; }
+.dial-caption { color: var(--muted); font-size: .8rem; }
+.controls { display: grid; align-content: center; gap: 22px; }
+label, legend { font-weight: 700; }
+fieldset { border: 0; padding: 0; margin: 0; }
+.preset-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+button { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--card); color: var(--ink); cursor: pointer; text-align: left; transition: background .15s, border-color .15s, color .15s; }
+button:hover, button:focus-visible { border-color: var(--accent); }
+button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: white; }
+button small { display: block; color: inherit; opacity: .75; font-size: .75rem; }
+.range-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+output { color: var(--accent-dark); font-weight: 800; font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+.result { padding: 18px; border-radius: 12px; background: var(--accent-soft); }
+.result strong { display: block; font: 700 1.45rem Georgia, serif; }
+.burr-distance, .switch-action { display: flex; justify-content: space-between; gap: 16px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #9a4d2d55; font-size: .9rem; }
+.switch-action { align-items: center; }
+.switch-action button { padding: 7px 10px; border-color: var(--accent); color: var(--accent-dark); font-weight: 700; white-space: nowrap; }
+.warning { background: var(--warning); }
+.hint, .sources { font-size: .9rem; }
+.sources { margin-top: 24px; font-size: .8rem; }
+a { color: var(--accent-dark); }
+
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #f3ece5; --muted: #b8aaa0; --paper: #211d1a; --card: #2d2723; --line: #514840; --accent: #dc8a65; --accent-dark: #f0a17d; --accent-soft: #56372c; --warning: #554326; }
+  .dial { border-color: #5a5049; background: radial-gradient(circle, var(--card) 0 38%, transparent 39%), repeating-conic-gradient(from -140deg, #9c8e84 0 1deg, transparent 1deg 7deg); box-shadow: inset 0 0 0 2px #766960, 0 5px 12px #0008; }
+  .dial::before { border-color: #70493b; }
+  .dial::after { background: var(--accent); }
+  .micro-marker::after { background: var(--accent-dark); }
+}
+@media (max-width: 700px) {
+  main { padding: 28px 0; }
+  .calculator { grid-template-columns: 1fr; padding: 18px; }
+  .dial-wrap { min-height: 260px; }
+}

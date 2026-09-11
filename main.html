@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical Fellow Opus grind setting calculator.">
+  <title>Fellow Opus Grind Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="hint">FELLOW OPUS</p>
+      <h1>Find your grind setting.</h1>
+      <p class="intro">Choose a brew method for a reliable starting point, then fine-tune by taste. Coffee, recipe, and water all change the ideal setting.</p>
+    </header>
+
+    <section class="card calculator" aria-label="Fellow Opus grind calculator">
+      <div class="dial-wrap">
+        <div class="dial" id="dial" role="img" aria-label="Fellow Opus dial visualization">
+          <div class="micro-marker" aria-hidden="true"></div>
+          <div class="dial-label">
+            <span class="dial-value" id="dial-value">5 + 0</span>
+            <span class="dial-caption">macro + micro</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <fieldset>
+          <legend>Brew method</legend>
+          <div class="preset-grid" id="presets"></div>
+        </fieldset>
+
+        <div>
+          <div class="range-row">
+            <label for="setting">Custom macro setting</label>
+            <output id="setting-output" for="setting">5.00</output>
+          </div>
+          <input id="setting" type="range" min="1" max="11" step=".25" value="5">
+          <p class="hint">Lower numbers are finer. The Opus dial runs from 1 (fine) to 11 (coarse).</p>
+        </div>
+
+        <div>
+          <div class="range-row">
+            <label for="micro-setting">Micro adjustment</label>
+            <output id="micro-output" for="micro-setting">0 clicks</output>
+          </div>
+          <input id="micro-setting" type="range" min="-6" max="6" step="1" value="0">
+          <p class="hint">Use the inner ring for six clicks finer (−) or coarser (+) than the macro setting.</p>
+        </div>
+
+        <div class="result" id="result">
+          <strong id="result-title">Pour over: 5 + 0 micro</strong>
+          <span id="result-text">Start around 5.5 and adjust for taste.</span>
+          <div class="burr-distance">
+            <span>Relative burr movement</span>
+            <output id="burr-output">+200.0 µm</output>
+          </div>
+          <div class="switch-action">
+            <span id="switch-text">Current method</span>
+            <button id="apply-preset" type="button">Apply setting</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="sources">
+      Ranges are starting points based on <a href="https://fellowproducts.com/pages/gear-guide-opus" target="_blank" rel="noreferrer">Fellow's Opus gear guide</a> and the <a href="https://www.seattlecoffeegear.com/assets/user-manuals/opus-user-manual.pdf" target="_blank" rel="noreferrer">Opus user manual</a>. Fellow specifies 50 µm per full outer-number movement and 16.7 µm per inner-ring click in its <a href="https://help.fellowproducts.com/hc/en-us/articles/12697812844315-What-does-the-Opus-1-inner-adjustment-ring-do-and-how-do-I-use-it" target="_blank" rel="noreferrer">inner-ring guide</a>. Absolute burr-to-burr spacing is not published, so the app shows relative movement from setting 1 rather than pretending it is a measured gap. Turkish coffee is included for convenience, but the Opus is not designed to produce true powder-fine coffee.
+    </p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
