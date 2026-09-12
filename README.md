@@ -15,36 +15,34 @@ This app was created and refactored with assistance from an AI assistant using C
   - French press
   - Cold brew
   - Turkish coffee
-- Separate macro and micro adjustment controls.
-- Relative burr movement calculation in microns.
-- Quick switching between brew methods without losing the current dialed-in setting.
+- Separate outer-ring and inner-ring adjustment controls.
+- Combined adjusted Opus setting from the outer and inner rings.
+- Brew-method reference table for starting points.
 - Dark mode that follows the operating system preference.
 - Responsive layout for desktop and mobile screens.
 - No external JavaScript dependencies or build tools.
 
 ## Files
 
-- `main.html` — page structure and content.
+- `index.html` — page structure, content, and the GitHub Pages entry point.
 - `styles.css` — layout, dial styling, responsive behavior, and light/dark themes.
-- `script.js` — brew presets, slider controls, burr movement calculation, and brew-method switching.
+- `script.js` — brew-method data, reference-table rendering, slider controls, and adjusted-setting calculation.
 
 ## Running locally
 
-Open `main.html` in a browser. Because the app uses only local files, no development server is required.
+Open `index.html` in a browser. Because the app uses only local files, no development server is required.
 
-For GitHub Pages, configure Pages to serve the repository root. GitHub Pages normally looks for `index.html`; if needed, rename `main.html` to `index.html` before publishing.
+For GitHub Pages, configure Pages to serve the repository root.
 
 ## Grind-setting notes
 
-The displayed values are starting points, not guarantees. The ideal setting depends on the coffee, roast, recipe, dose, water, and grinder condition. Adjust based on brew time and taste.
+The displayed values are starting points, not guarantees. The ideal setting depends on the coffee, roast, recipe, dose, water, and grinder condition. Adjust based on brew time and taste. The outer ring is the normal day-to-day grind control; the inner ring is a calibration offset that shifts the outer ring's range.
 
-The burr movement display is **relative**, not an absolute burr-to-burr gap:
+The adjusted setting combines the two Opus rings:
 
-- One full outer-number movement represents approximately **50 µm** of burr-height movement.
-- One inner-ring click represents approximately **16.7 µm**.
-- Six inner-ring clicks equal one full outer-number movement.
-
-Fellow does not publish a calibrated absolute burr gap for the Opus, so the calculator deliberately avoids presenting relative movement as a measured physical gap.
+- The outer ring is the normal setting from 1 to 11, with quarter-step increments.
+- Each inner-ring notch shifts the effective setting by **1/6** of an outer number.
+- The displayed adjusted setting is calculated as `outer setting + inner offset / 6`.
 
 Turkish coffee is included as a helpful reference, but the Opus is not designed to produce the powder-fine grind normally required for authentic Turkish coffee.
 
@@ -55,4 +53,3 @@ Turkish coffee is included as a helpful reference, but the Opus is not designed 
 - [Fellow Opus user manual](https://www.seattlecoffeegear.com/assets/user-manuals/opus-user-manual.pdf)
 - [Honest Coffee Guide — Fellow Opus grind settings](https://honestcoffeeguide.com/fellow-opus-grind-settings/)
 - [Bizarre Coffee — How to grind coffee with a Fellow Opus](https://www.bizarrecoffee.com/blogs/brew-guides/how-to-grind-coffee-with-a-fellow-opus-coffee-grinder)
-
