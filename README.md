@@ -17,6 +17,7 @@ This app was created and refactored with assistance from an AI assistant using C
   - Turkish coffee
 - Separate outer-ring and inner-ring adjustment controls.
 - Combined adjusted Opus setting from the outer and inner rings.
+- Closest reachable finer and coarser settings, preferring the route with the least total ring movement.
 - Brew-method reference table for starting points.
 - Dark mode that follows the operating system preference.
 - Responsive layout for desktop and mobile screens.

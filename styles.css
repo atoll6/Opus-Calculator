@@ -194,6 +194,37 @@ input[type="range"] {
   cursor: pointer;
 }
 
+.next-adjustments {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.next-adjustment {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.next-adjustment span {
+  color: var(--muted);
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.next-adjustment output {
+  font-size: 1.15rem;
+}
+
+.next-adjustment small {
+  color: var(--muted);
+  font-size: .72rem;
+}
+
 .reference {
   margin-top: 24px;
   padding: 24px 28px;
@@ -269,5 +300,9 @@ tbody th {
 
   .dial-wrap {
     min-height: 260px;
+  }
+
+  .next-adjustments {
+    grid-template-columns: 1fr;
   }
 }

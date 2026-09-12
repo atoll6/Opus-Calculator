@@ -16,7 +16,11 @@ const elements = {
   innerSlider: document.querySelector("#micro-setting"),
   innerOutput: document.querySelector("#micro-output"),
   dial: document.querySelector("#dial"),
-  dialValue: document.querySelector("#dial-value")
+  dialValue: document.querySelector("#dial-value"),
+  nextFiner: document.querySelector("#next-finer"),
+  nextFinerControls: document.querySelector("#next-finer-controls"),
+  nextCoarser: document.querySelector("#next-coarser"),
+  nextCoarserControls: document.querySelector("#next-coarser-controls")
 };
 
 function formatOuterSetting(value) {
@@ -31,6 +35,60 @@ function formatInnerOffset(value) {
   const sign = value > 0 ? "+" : "";
   const unit = Math.abs(value) === 1 ? "click" : "clicks";
   return `${sign}${value} ${unit}`;
+}
+
+function formatDialValue(value) {
+  return value.toFixed(2);
+}
+
+function getNextAdjustment(outerSetting, innerOffset, direction) {
+  const currentAdjusted = outerSetting + innerOffset / 6;
+  const currentOuterSteps = Math.round(outerSetting * 4);
+  const candidates = [];
+
+  for (let outerSteps = 4; outerSteps <= 44; outerSteps += 1) {
+    for (let inner = -6; inner <= 6; inner += 1) {
+      const outer = outerSteps / 4;
+      const adjusted = outer + inner / 6;
+      const isInDirection = direction === "finer"
+        ? adjusted < currentAdjusted - 0.001
+        : adjusted > currentAdjusted + 0.001;
+
+      if (isInDirection) {
+        candidates.push({
+          adjusted,
+          outer,
+          inner,
+          distance: Math.abs(adjusted - currentAdjusted),
+          movement: Math.abs(outerSteps - currentOuterSteps) + Math.abs(inner - innerOffset)
+        });
+      }
+    }
+  }
+
+  candidates.sort((a, b) => a.distance - b.distance || a.movement - b.movement);
+  return candidates[0] || null;
+}
+
+function updateNextAdjustments(outerSetting, innerOffset) {
+  const finer = getNextAdjustment(outerSetting, innerOffset, "finer");
+  const coarser = getNextAdjustment(outerSetting, innerOffset, "coarser");
+
+  if (finer) {
+    elements.nextFiner.textContent = formatDialValue(finer.adjusted);
+    elements.nextFinerControls.textContent = `outer ${formatOuterSetting(finer.outer)}, inner ${formatInnerOffset(finer.inner)}`;
+  } else {
+    elements.nextFiner.textContent = "—";
+    elements.nextFinerControls.textContent = "finest available setting";
+  }
+
+  if (coarser) {
+    elements.nextCoarser.textContent = formatDialValue(coarser.adjusted);
+    elements.nextCoarserControls.textContent = `outer ${formatOuterSetting(coarser.outer)}, inner ${formatInnerOffset(coarser.inner)}`;
+  } else {
+    elements.nextCoarser.textContent = "—";
+    elements.nextCoarserControls.textContent = "coarsest available setting";
+  }
 }
 
 function renderReferenceTable() {
@@ -53,6 +111,7 @@ function updateDial() {
   elements.innerOutput.value = formatInnerOffset(innerOffset);
   elements.innerOutput.textContent = formatInnerOffset(innerOffset);
   elements.dialValue.textContent = adjustedSetting.toFixed(2);
+  updateNextAdjustments(outerSetting, innerOffset);
 
   elements.dial.style.setProperty("--rotation", `${(outerSetting - 1) * 28}deg`);
   elements.dial.style.setProperty("--micro-rotation", `${innerOffset * 10}deg`);

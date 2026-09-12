@@ -43,6 +43,19 @@
           <input id="micro-setting" type="range" min="-6" max="6" step="1" value="0">
           <p class="hint">This is a calibration offset: − makes the range finer and + makes it coarser. Each notch is 1/6 of a number (16.7 µm); six notches equal one number.</p>
         </div>
+
+        <div class="next-adjustments" aria-live="polite">
+          <p class="next-adjustment">
+            <span>Next finer</span>
+            <output id="next-finer">4.75</output>
+            <small id="next-finer-controls">outer 4.75, inner 0</small>
+          </p>
+          <p class="next-adjustment">
+            <span>Next coarser</span>
+            <output id="next-coarser">5.25</output>
+            <small id="next-coarser-controls">outer 5.25, inner 0</small>
+          </p>
+        </div>
       </div>
     </section>
 
